@@ -120,7 +120,7 @@ export default function HomePage() {
 
         <div className={styles.headerControls}>
           <a
-            className={`${styles.navLink} ${styles.liquidGlass}`}
+            className={styles.navLink}
             href="https://github.com/juggperc/swifotine"
             rel="noreferrer"
             target="_blank"
@@ -128,7 +128,7 @@ export default function HomePage() {
             GitHub
           </a>
           <a
-            className={`${styles.navLink} ${styles.liquidGlass}`}
+            className={styles.navLink}
             href="https://github.com/juggperc/swifotine/releases/tag/arm"
             rel="noreferrer"
             target="_blank"
@@ -137,7 +137,7 @@ export default function HomePage() {
           </a>
           <button
             aria-label={`Switch to ${nextTheme} mode`}
-            className={`${styles.themeToggle} ${styles.liquidGlass}`}
+            className={styles.themeToggle}
             onClick={() => setTheme(nextTheme)}
             type="button"
           >
@@ -145,7 +145,7 @@ export default function HomePage() {
           </button>
 
           <details className={styles.accessMenu}>
-            <summary className={`${styles.accessSummary} ${styles.liquidGlass}`}>
+            <summary className={styles.accessSummary}>
               Accessibility
             </summary>
             <div className={`${styles.accessPanel} ${styles.liquidGlass}`}>
@@ -221,15 +221,10 @@ export default function HomePage() {
                 <code className={styles.commandLines}>
                   <span>cd ~/Downloads</span>
                   <span>unzip -o Swifotine.app.zip</span>
-                  <span>
-                    mv -f &quot;Swifotine.app&quot; /Applications/ || sudo mv -f
-                    &quot;Swifotine.app&quot; /Applications/
-                  </span>
+                  <span>mv -f &quot;Swifotine.app&quot; /Applications/ \\</span>
+                  <span>|| sudo mv -f &quot;Swifotine.app&quot; /Applications/</span>
                   <span>cd /Applications</span>
-                  <span>
-                    chmod +x
-                    &quot;Swifotine.app/Contents/MacOS/Swifotine&quot;
-                  </span>
+                  <span>chmod +x &quot;Swifotine.app/Contents/MacOS/Swifotine&quot;</span>
                   <span>xattr -dr com.apple.quarantine &quot;Swifotine.app&quot;</span>
                   <span className={styles.commandFinal}>open &quot;Swifotine.app&quot;</span>
                 </code>

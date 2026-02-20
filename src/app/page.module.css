@@ -191,6 +191,7 @@
   justify-content: space-between;
   margin: 0 auto;
   max-width: 1120px;
+  overflow: visible;
   padding: 0.72rem 0.82rem;
   z-index: 2;
 }
@@ -227,6 +228,7 @@
   align-items: center;
   display: inline-flex;
   gap: 0.44rem;
+  overflow: visible;
   position: relative;
   z-index: 2;
 }
@@ -235,39 +237,45 @@
 .themeToggle,
 .accessSummary,
 .accessOption {
-  color: var(--text-body);
+  color: var(--text-strong);
   font-family: var(--font-space-grotesk), sans-serif;
-  font-weight: 700;
+  font-weight: 650;
 }
 
 .navLink,
 .themeToggle,
 .accessSummary {
+  align-items: center;
+  background: color-mix(in srgb, var(--surface-strong), white 8%);
+  border: 1px solid var(--stroke-soft);
   border-radius: 999px;
+  box-shadow: 0 6px 14px rgba(16, 47, 88, 0.14);
+  display: inline-flex;
   font-size: 0.8rem;
+  min-height: 2.4rem;
   padding: 0.44rem 0.72rem;
 }
 
 .navLink,
 .themeToggle {
   cursor: pointer;
-  position: relative;
-  z-index: 1;
+  text-decoration: none;
 }
 
 .themeToggle {
-  border: 0;
+  border-color: var(--stroke-strong);
 }
 
 .accessMenu {
+  display: inline-flex;
+  overflow: visible;
   position: relative;
+  z-index: 26;
 }
 
 .accessSummary {
   cursor: pointer;
   list-style: none;
-  position: relative;
-  z-index: 1;
 }
 
 .accessSummary::-webkit-details-marker {
@@ -276,35 +284,50 @@
 
 .accessSummary::after {
   content: "▾";
-  margin-left: 0.4rem;
+  font-size: 0.72rem;
+  margin-left: 0.48rem;
 }
 
 .accessPanel {
-  border-radius: 0.9rem;
+  border-radius: 0.96rem;
   display: grid;
   gap: 0.45rem;
-  margin-top: 0.42rem;
-  min-width: 220px;
-  padding: 0.58rem;
+  margin-top: 0.52rem;
+  min-width: 228px;
+  padding: 0.64rem;
   position: absolute;
   right: 0;
-  top: 100%;
-  z-index: 20;
+  top: calc(100% + 0.12rem);
+  z-index: 30;
 }
 
 .accessOption {
-  background: color-mix(in srgb, var(--surface), transparent 8%);
+  align-items: center;
+  background: color-mix(in srgb, var(--surface), white 8%);
   border: 1px solid var(--stroke-soft);
   border-radius: 0.68rem;
   cursor: pointer;
-  font-size: 0.76rem;
-  padding: 0.45rem 0.52rem;
+  display: flex;
+  font-size: 0.78rem;
+  justify-content: space-between;
+  padding: 0.48rem 0.56rem;
   text-align: left;
+  width: 100%;
 }
 
 .accessOption[aria-pressed="true"] {
   border-color: var(--stroke-strong);
   color: var(--text-strong);
+}
+
+.accessOption::after {
+  color: var(--text-muted);
+  content: "";
+  font-size: 0.78rem;
+}
+
+.accessOption[aria-pressed="true"]::after {
+  content: "✓";
 }
 
 .page :is(a, button, summary):focus-visible {
@@ -318,6 +341,7 @@
 .accessOption:hover {
   border-color: var(--stroke-strong);
   color: var(--text-strong);
+  transform: translateY(-1px);
 }
 
 .hero {
@@ -539,9 +563,19 @@
 }
 
 .commandLines span {
+  border-left: 2px solid color-mix(in srgb, var(--stroke-soft), transparent 28%);
   display: block;
+  margin-left: 0.2rem;
   opacity: 0;
+  overflow-wrap: anywhere;
+  padding-left: 0.48rem;
+  white-space: pre-wrap;
   transform: translateY(6px);
+}
+
+.commandLines span::before {
+  color: var(--text-muted);
+  content: "$ ";
 }
 
 .installHelp[open] .commandLines span {
@@ -574,6 +608,10 @@
 
 .installHelp[open] .commandLines span:nth-child(7) {
   animation-delay: 630ms;
+}
+
+.installHelp[open] .commandLines span:nth-child(8) {
+  animation-delay: 720ms;
 }
 
 .commandFinal::after {
