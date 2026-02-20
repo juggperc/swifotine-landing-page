@@ -107,15 +107,29 @@ export default function HomePage() {
                 <code> Swifotine.app.zip</code>. Put <code>Swifotine.app</code> in
                 <code> /Applications</code> first:
               </p>
-              <pre className={styles.commandBlock}>
-                <code>{`cd ~/Downloads
-unzip -o Swifotine.app.zip
-mv -f "Swifotine.app" /Applications/ || sudo mv -f "Swifotine.app" /Applications/
-cd /Applications
-chmod +x "Swifotine.app/Contents/MacOS/Swifotine"
-xattr -dr com.apple.quarantine "Swifotine.app"
-open "Swifotine.app"`}</code>
-              </pre>
+              <div aria-hidden="true" className={styles.installFlow}>
+                <span className={styles.flowStep}>1. Unzip</span>
+                <span className={styles.flowStep}>2. Move to /Applications</span>
+                <span className={styles.flowStep}>3. Unlock</span>
+                <span className={styles.flowStep}>4. Launch</span>
+              </div>
+              <div className={styles.terminalFrame}>
+                <div className={styles.terminalBar}>
+                  <span />
+                  <span />
+                  <span />
+                  <p>swifotine-install</p>
+                </div>
+                <code className={styles.commandLines}>
+                  <span>cd ~/Downloads</span>
+                  <span>unzip -o Swifotine.app.zip</span>
+                  <span>mv -f &quot;Swifotine.app&quot; /Applications/ || sudo mv -f &quot;Swifotine.app&quot; /Applications/</span>
+                  <span>cd /Applications</span>
+                  <span>chmod +x &quot;Swifotine.app/Contents/MacOS/Swifotine&quot;</span>
+                  <span>xattr -dr com.apple.quarantine &quot;Swifotine.app&quot;</span>
+                  <span className={styles.commandFinal}>open &quot;Swifotine.app&quot;</span>
+                </code>
+              </div>
               <p className={styles.installNote}>
                 If it is still blocked: open <strong>System Settings → Privacy & Security</strong> and click
                 <strong> Open Anyway</strong> for Swifotine, then launch again.

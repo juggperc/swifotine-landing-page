@@ -275,15 +275,108 @@
   padding: 0.06rem 0.32rem;
 }
 
-.commandBlock {
-  background: color-mix(in srgb, var(--surface), transparent 14%);
-  border: 1px solid var(--stroke-soft);
-  border-radius: 0.68rem;
-  overflow-x: auto;
-  padding: 0.62rem 0.64rem;
+.installFlow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
 }
 
-.commandBlock code {
+.flowStep {
+  background: color-mix(in srgb, var(--surface), transparent 8%);
+  border: 1px solid var(--stroke-soft);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  padding: 0.28rem 0.56rem;
+  transform: translateY(4px);
+  opacity: 0;
+}
+
+.installHelp[open] .flowStep {
+  animation: flowStepIn 420ms ease forwards;
+}
+
+.installHelp[open] .flowStep:nth-child(1) {
+  animation-delay: 80ms;
+}
+
+.installHelp[open] .flowStep:nth-child(2) {
+  animation-delay: 170ms;
+}
+
+.installHelp[open] .flowStep:nth-child(3) {
+  animation-delay: 260ms;
+}
+
+.installHelp[open] .flowStep:nth-child(4) {
+  animation-delay: 350ms;
+}
+
+.terminalFrame {
+  background: color-mix(in srgb, var(--surface), transparent 12%);
+  border: 1px solid var(--stroke-soft);
+  border-radius: 0.68rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.terminalFrame::after {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(101, 192, 255, 0.15) 48%,
+    transparent 100%
+  );
+  content: "";
+  inset: -140% 0 auto;
+  pointer-events: none;
+  position: absolute;
+}
+
+.installHelp[open] .terminalFrame::after {
+  animation: scanline 2.8s linear infinite;
+}
+
+.terminalBar {
+  align-items: center;
+  background: color-mix(in srgb, var(--surface), transparent 4%);
+  border-bottom: 1px solid var(--stroke-soft);
+  display: grid;
+  gap: 0.36rem;
+  grid-template-columns: repeat(3, auto) 1fr;
+  padding: 0.42rem 0.58rem;
+}
+
+.terminalBar span {
+  border-radius: 999px;
+  height: 0.45rem;
+  width: 0.45rem;
+}
+
+.terminalBar span:nth-child(1) {
+  background: #ff8a8a;
+}
+
+.terminalBar span:nth-child(2) {
+  background: #ffd27d;
+}
+
+.terminalBar span:nth-child(3) {
+  background: #7de39e;
+}
+
+.terminalBar p {
+  color: var(--text-muted);
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 0.68rem;
+  justify-self: end;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.commandLines {
   background: transparent;
   border: 0;
   color: var(--text-strong);
@@ -291,7 +384,51 @@
   font-family: var(--font-plex-mono), monospace;
   font-size: 0.78rem;
   line-height: 1.62;
-  padding: 0;
+  padding: 0.58rem 0.62rem;
+}
+
+.commandLines span {
+  display: block;
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.installHelp[open] .commandLines span {
+  animation: commandLineIn 500ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.installHelp[open] .commandLines span:nth-child(1) {
+  animation-delay: 90ms;
+}
+
+.installHelp[open] .commandLines span:nth-child(2) {
+  animation-delay: 180ms;
+}
+
+.installHelp[open] .commandLines span:nth-child(3) {
+  animation-delay: 270ms;
+}
+
+.installHelp[open] .commandLines span:nth-child(4) {
+  animation-delay: 360ms;
+}
+
+.installHelp[open] .commandLines span:nth-child(5) {
+  animation-delay: 450ms;
+}
+
+.installHelp[open] .commandLines span:nth-child(6) {
+  animation-delay: 540ms;
+}
+
+.installHelp[open] .commandLines span:nth-child(7) {
+  animation-delay: 630ms;
+}
+
+.commandFinal::after {
+  animation: caretBlink 1s steps(1) infinite;
+  color: var(--text-muted);
+  content: "  _";
 }
 
 .installNote {
@@ -496,6 +633,50 @@
   }
   50% {
     box-shadow: 0 18px 34px rgba(34, 143, 240, 0.38);
+  }
+}
+
+@keyframes flowStepIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes commandLineIn {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scanline {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(240%);
+  }
+}
+
+@keyframes caretBlink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
   }
 }
 
