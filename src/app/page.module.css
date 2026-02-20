@@ -2,14 +2,14 @@
   --bg-top: #6aaeea;
   --bg-mid: #aed4fa;
   --bg-bottom: #f9dcb0;
-  --surface: rgba(248, 252, 255, 0.32);
-  --surface-strong: rgba(249, 253, 255, 0.48);
+  --surface: rgba(248, 252, 255, 0.5);
+  --surface-strong: rgba(249, 253, 255, 0.68);
   --liquid-shadow: 0 20px 38px rgba(24, 67, 120, 0.18);
-  --text-strong: #17375f;
-  --text-body: #2c5786;
-  --text-muted: #4c78a5;
-  --stroke-soft: rgba(98, 150, 214, 0.25);
-  --stroke-strong: rgba(58, 123, 201, 0.55);
+  --text-strong: #102f56;
+  --text-body: #1f4b79;
+  --text-muted: #355f8d;
+  --stroke-soft: rgba(80, 137, 203, 0.34);
+  --stroke-strong: rgba(42, 106, 185, 0.66);
   --focus: #0f5ac4;
   --mountain: #7da5d8;
   --ground-a: #f5c486;
@@ -31,14 +31,14 @@
   --bg-top: #082146;
   --bg-mid: #173e73;
   --bg-bottom: #b98458;
-  --surface: rgba(13, 30, 56, 0.42);
-  --surface-strong: rgba(11, 24, 46, 0.6);
+  --surface: rgba(13, 30, 56, 0.56);
+  --surface-strong: rgba(11, 24, 46, 0.72);
   --liquid-shadow: 0 20px 40px rgba(5, 14, 30, 0.42);
   --text-strong: #ecf7ff;
-  --text-body: #b8d8f4;
-  --text-muted: #88b1d8;
-  --stroke-soft: rgba(132, 189, 253, 0.26);
-  --stroke-strong: rgba(170, 218, 255, 0.58);
+  --text-body: #d4e9ff;
+  --text-muted: #a9cceb;
+  --stroke-soft: rgba(143, 197, 255, 0.34);
+  --stroke-strong: rgba(189, 226, 255, 0.66);
   --focus: #a8d3ff;
   --mountain: #2c5487;
   --ground-a: #b67f51;
@@ -177,19 +177,9 @@
   background: radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.42), transparent 44%);
   content: "";
   inset: 0;
-  opacity: 0.62;
+  opacity: 0.46;
   pointer-events: none;
   position: absolute;
-}
-
-.liquidGlass::after {
-  animation: glassShimmer 10s ease-in-out infinite;
-  background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.2) 50%, transparent 80%);
-  content: "";
-  inset: -110% 0;
-  pointer-events: none;
-  position: absolute;
-  transform: translateX(-120%);
 }
 
 .header {
@@ -254,7 +244,7 @@
 .themeToggle,
 .accessSummary {
   border-radius: 999px;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   padding: 0.44rem 0.72rem;
 }
 
@@ -352,16 +342,17 @@
   letter-spacing: -0.03em;
   line-height: 0.88;
   margin-top: 0.7rem;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.22);
   text-wrap: balance;
 }
 
 .heroCopy {
   color: var(--text-body);
   font-family: var(--font-space-grotesk), sans-serif;
-  font-size: clamp(1rem, 2.2vw, 1.2rem);
-  line-height: 1.6;
+  font-size: clamp(1.02rem, 2.2vw, 1.22rem);
+  line-height: 1.68;
   margin: 1rem auto 0;
-  max-width: 710px;
+  max-width: 680px;
 }
 
 .heroActions {
@@ -429,7 +420,7 @@
 .installPanel p {
   color: var(--text-body);
   font-family: var(--font-space-grotesk), sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   line-height: 1.5;
 }
 
@@ -542,7 +533,7 @@
   color: var(--text-strong);
   display: block;
   font-family: var(--font-plex-mono), monospace;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   line-height: 1.62;
   padding: 0.58rem 0.62rem;
 }
@@ -619,7 +610,7 @@
 
 .featureCard p {
   color: var(--text-body);
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   line-height: 1.45;
   margin-top: 0.32rem;
   position: relative;
@@ -644,7 +635,7 @@
 }
 
 .primaryShot figcaption {
-  background: linear-gradient(180deg, transparent 0%, rgba(12, 20, 38, 0.88) 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(12, 20, 38, 0.93) 100%);
   bottom: 0;
   color: #e2f2ff;
   font-size: 0.79rem;
@@ -689,7 +680,7 @@
 .acknowledgements > p {
   color: var(--text-body);
   font-family: var(--font-space-grotesk), sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   margin-top: 0.3rem;
 }
 
@@ -766,16 +757,6 @@
   }
   100% {
     transform: translateX(-2%) rotate(0deg);
-  }
-}
-
-@keyframes glassShimmer {
-  0% {
-    transform: translateX(-120%);
-  }
-  45%,
-  100% {
-    transform: translateX(140%);
   }
 }
 

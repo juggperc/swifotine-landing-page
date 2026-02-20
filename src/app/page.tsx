@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { AussieFlagRig } from "@/components/AussieFlagRig";
 import { DownloadButton } from "@/components/DownloadButton";
 import { acknowledgements, minimumOS, screenshots } from "@/lib/swifotine";
 import styles from "./page.module.css";
@@ -93,6 +94,7 @@ export default function HomePage() {
       <a className={styles.skipLink} href="#main-content">
         Skip to main content
       </a>
+      <AussieFlagRig reduceMotion={reduceMotion} />
 
       <div className={styles.skyGlow} />
       <div className={styles.shaderVeil} />

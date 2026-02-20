@@ -1,0 +1,104 @@
+.rig {
+  --flag-w: 58px;
+  --flag-h: 40px;
+
+  contain: layout paint style;
+  height: 170px;
+  pointer-events: none;
+  position: fixed;
+  right: max(0.52rem, env(safe-area-inset-right));
+  top: max(0.3rem, env(safe-area-inset-top));
+  width: 140px;
+  z-index: 28;
+}
+
+.stringLayer {
+  display: block;
+  height: 100%;
+  overflow: visible;
+  width: 100%;
+}
+
+.stringShadow,
+.stringMain {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.stringShadow {
+  stroke: rgba(6, 20, 45, 0.32);
+  stroke-width: 3.4;
+}
+
+.stringMain {
+  stroke: rgba(235, 247, 255, 0.95);
+  stroke-width: 1.8;
+}
+
+.anchorDot {
+  fill: rgba(245, 252, 255, 0.92);
+  stroke: rgba(50, 90, 146, 0.65);
+  stroke-width: 1;
+}
+
+.flagHandle {
+  align-items: center;
+  background: linear-gradient(
+    135deg,
+    rgba(250, 253, 255, 0.88),
+    rgba(227, 241, 255, 0.62)
+  );
+  border: 1px solid rgba(166, 212, 255, 0.74);
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 22px rgba(9, 34, 71, 0.26);
+  cursor: grab;
+  display: inline-flex;
+  height: var(--flag-h);
+  justify-content: center;
+  left: 0;
+  outline: none;
+  padding: 0;
+  pointer-events: auto;
+  position: absolute;
+  top: 0;
+  touch-action: none;
+  user-select: none;
+  width: var(--flag-w);
+  will-change: transform;
+}
+
+.flagHandle:active {
+  cursor: grabbing;
+}
+
+.flagHandle:focus-visible {
+  outline: 2px solid #b8dcff;
+  outline-offset: 2px;
+}
+
+.flagHandle img {
+  border-radius: 0.35rem;
+  height: calc(var(--flag-h) - 6px);
+  object-fit: cover;
+  pointer-events: none;
+  width: calc(var(--flag-w) - 6px);
+}
+
+@media (max-width: 900px) {
+  .rig {
+    height: 158px;
+    width: 126px;
+  }
+}
+
+@media (max-width: 720px) {
+  .rig {
+    --flag-w: 48px;
+    --flag-h: 34px;
+
+    height: 142px;
+    right: max(0.42rem, env(safe-area-inset-right));
+    top: max(0.22rem, env(safe-area-inset-top));
+    width: 112px;
+  }
+}
