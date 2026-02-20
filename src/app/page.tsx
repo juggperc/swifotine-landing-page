@@ -26,6 +26,14 @@ const conciseFeatures = [
   },
 ];
 
+function getBooleanStorageValue(key: string, fallback = false) {
+  if (typeof window === "undefined") {
+    return fallback;
+  }
+
+  return window.localStorage.getItem(key) === "true";
+}
+
 export default function HomePage() {
   const [theme, setTheme] = useState<ThemeMode>(() => {
     if (typeof window === "undefined") {
@@ -37,24 +45,62 @@ export default function HomePage() {
       return savedTheme;
     }
 
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
   });
+  const [highContrast, setHighContrast] = useState<boolean>(() =>
+    getBooleanStorageValue("swifotine-high-contrast"),
+  );
+  const [readableMode, setReadableMode] = useState<boolean>(() =>
+    getBooleanStorageValue("swifotine-readable-mode"),
+  );
+  const [reduceMotion, setReduceMotion] = useState<boolean>(() =>
+    getBooleanStorageValue("swifotine-reduce-motion"),
+  );
 
   useEffect(() => {
     window.localStorage.setItem("swifotine-theme", theme);
     document.documentElement.style.colorScheme = theme;
   }, [theme]);
 
+  useEffect(() => {
+    window.localStorage.setItem("swifotine-high-contrast", String(highContrast));
+  }, [highContrast]);
+
+  useEffect(() => {
+    window.localStorage.setItem("swifotine-readable-mode", String(readableMode));
+  }, [readableMode]);
+
+  useEffect(() => {
+    window.localStorage.setItem("swifotine-reduce-motion", String(reduceMotion));
+  }, [reduceMotion]);
+
   const nextTheme = theme === "dark" ? "light" : "dark";
 
+  const pageClassName = [
+    styles.page,
+    theme === "dark" ? styles.dark : styles.light,
+    highContrast ? styles.highContrast : "",
+    readableMode ? styles.readable : "",
+    reduceMotion ? styles.reduceMotion : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <main className={`${styles.page} ${theme === "dark" ? styles.dark : styles.light}`}>
+    <main className={pageClassName}>
+      <a className={styles.skipLink} href="#main-content">
+        Skip to main content
+      </a>
+
       <div className={styles.skyGlow} />
+      <div className={styles.shaderVeil} />
       <div className={styles.sun} />
       <div className={styles.mountains} />
       <div className={styles.ground} />
 
-      <header className={styles.header}>
+      <header className={`${styles.header} ${styles.liquidGlass}`}>
         <a className={styles.brand} href="#top">
           <Image
             alt="Swifotine app icon"
@@ -70,41 +116,91 @@ export default function HomePage() {
           </div>
         </a>
 
-        <nav aria-label="Main" className={styles.nav}>
-          <a href="https://github.com/juggperc/swifotine" rel="noreferrer" target="_blank">
+        <div className={styles.headerControls}>
+          <a
+            className={`${styles.navLink} ${styles.liquidGlass}`}
+            href="https://github.com/juggperc/swifotine"
+            rel="noreferrer"
+            target="_blank"
+          >
             GitHub
           </a>
-          <a href="https://github.com/juggperc/swifotine/releases/tag/arm" rel="noreferrer" target="_blank">
+          <a
+            className={`${styles.navLink} ${styles.liquidGlass}`}
+            href="https://github.com/juggperc/swifotine/releases/tag/arm"
+            rel="noreferrer"
+            target="_blank"
+          >
             Release Notes
           </a>
           <button
             aria-label={`Switch to ${nextTheme} mode`}
-            className={styles.themeToggle}
+            className={`${styles.themeToggle} ${styles.liquidGlass}`}
             onClick={() => setTheme(nextTheme)}
             type="button"
           >
             {theme === "dark" ? "Dark" : "Light"}
           </button>
-        </nav>
+
+          <details className={styles.accessMenu}>
+            <summary className={`${styles.accessSummary} ${styles.liquidGlass}`}>
+              Accessibility
+            </summary>
+            <div className={`${styles.accessPanel} ${styles.liquidGlass}`}>
+              <button
+                aria-pressed={highContrast}
+                className={styles.accessOption}
+                onClick={() => setHighContrast((current) => !current)}
+                type="button"
+              >
+                High contrast
+              </button>
+              <button
+                aria-pressed={readableMode}
+                className={styles.accessOption}
+                onClick={() => setReadableMode((current) => !current)}
+                type="button"
+              >
+                Readable text
+              </button>
+              <button
+                aria-pressed={reduceMotion}
+                className={styles.accessOption}
+                onClick={() => setReduceMotion((current) => !current)}
+                type="button"
+              >
+                Reduce motion
+              </button>
+            </div>
+          </details>
+        </div>
       </header>
 
-      <section className={styles.hero} id="top">
+      <section className={styles.hero} id="main-content">
         <p className={styles.eyebrow}>Swifotine for macOS</p>
-        <h1>Any song in the world, for free</h1>
+        <h1 id="top">Any song in the world, for free</h1>
         <p className={styles.heroCopy}>
-          Search, download, and play from one native app. No tab maze, no web wrappers, just a clean desktop flow.
+          Search, download, and play from one native app. No tab maze, no web
+          wrappers, just a clean desktop flow.
         </p>
 
         <div className={styles.heroActions}>
-          <DownloadButton className={styles.heroCta} tone={theme === "dark" ? "dark" : "light"} />
+          <DownloadButton
+            className={styles.heroCta}
+            tone={theme === "dark" ? "dark" : "light"}
+          />
           <p>{minimumOS}</p>
 
-          <details className={styles.installHelp}>
-            <summary className={styles.installSummary}>First-time install help (unsigned app)</summary>
+          <details className={`${styles.installHelp} ${styles.liquidGlass}`}>
+            <summary className={styles.installSummary}>
+              First-time install help (unsigned app)
+            </summary>
             <div className={styles.installPanel}>
               <p>
-                If macOS blocks launch, run these commands in Terminal after downloading
-                <code> Swifotine.app.zip</code>. Put <code>Swifotine.app</code> in
+                If macOS blocks launch, run these commands in Terminal after
+                downloading
+                <code> Swifotine.app.zip</code>. Put
+                <code> Swifotine.app</code> in
                 <code> /Applications</code> first:
               </p>
               <div aria-hidden="true" className={styles.installFlow}>
@@ -123,15 +219,22 @@ export default function HomePage() {
                 <code className={styles.commandLines}>
                   <span>cd ~/Downloads</span>
                   <span>unzip -o Swifotine.app.zip</span>
-                  <span>mv -f &quot;Swifotine.app&quot; /Applications/ || sudo mv -f &quot;Swifotine.app&quot; /Applications/</span>
+                  <span>
+                    mv -f &quot;Swifotine.app&quot; /Applications/ || sudo mv -f
+                    &quot;Swifotine.app&quot; /Applications/
+                  </span>
                   <span>cd /Applications</span>
-                  <span>chmod +x &quot;Swifotine.app/Contents/MacOS/Swifotine&quot;</span>
+                  <span>
+                    chmod +x
+                    &quot;Swifotine.app/Contents/MacOS/Swifotine&quot;
+                  </span>
                   <span>xattr -dr com.apple.quarantine &quot;Swifotine.app&quot;</span>
                   <span className={styles.commandFinal}>open &quot;Swifotine.app&quot;</span>
                 </code>
               </div>
               <p className={styles.installNote}>
-                If it is still blocked: open <strong>System Settings → Privacy & Security</strong> and click
+                If it is still blocked: open
+                <strong> System Settings → Privacy & Security</strong> and click
                 <strong> Open Anyway</strong> for Swifotine, then launch again.
               </p>
             </div>
@@ -141,7 +244,11 @@ export default function HomePage() {
 
       <section className={styles.featureGrid}>
         {conciseFeatures.map((feature, index) => (
-          <article className={styles.featureCard} key={feature.title} style={{ animationDelay: `${index * 110}ms` }}>
+          <article
+            className={`${styles.featureCard} ${styles.liquidGlass}`}
+            key={feature.title}
+            style={{ animationDelay: `${index * 110}ms` }}
+          >
             <h2>{feature.title}</h2>
             <p>{feature.detail}</p>
           </article>
@@ -149,17 +256,33 @@ export default function HomePage() {
       </section>
 
       <section className={styles.showcase}>
-        <figure className={styles.primaryShot}>
-          <Image alt={screenshots[1].alt} fill priority sizes="(max-width: 980px) 100vw, 74vw" src={screenshots[1].src} />
+        <figure className={`${styles.primaryShot} ${styles.liquidGlass}`}>
+          <Image
+            alt={screenshots[1].alt}
+            fill
+            priority
+            sizes="(max-width: 980px) 100vw, 74vw"
+            src={screenshots[1].src}
+          />
           <figcaption>{screenshots[1].caption}</figcaption>
         </figure>
 
         <div className={styles.thumbRow}>
-          <figure className={styles.thumbShot}>
-            <Image alt={screenshots[0].alt} fill sizes="(max-width: 980px) 100vw, 37vw" src={screenshots[0].src} />
+          <figure className={`${styles.thumbShot} ${styles.liquidGlass}`}>
+            <Image
+              alt={screenshots[0].alt}
+              fill
+              sizes="(max-width: 980px) 100vw, 37vw"
+              src={screenshots[0].src}
+            />
           </figure>
-          <figure className={styles.thumbShot}>
-            <Image alt={screenshots[2].alt} fill sizes="(max-width: 980px) 100vw, 37vw" src={screenshots[2].src} />
+          <figure className={`${styles.thumbShot} ${styles.liquidGlass}`}>
+            <Image
+              alt={screenshots[2].alt}
+              fill
+              sizes="(max-width: 980px) 100vw, 37vw"
+              src={screenshots[2].src}
+            />
           </figure>
         </div>
       </section>
@@ -169,7 +292,13 @@ export default function HomePage() {
         <p>Built with original open-source work and platform frameworks:</p>
         <div className={styles.ackItems}>
           {acknowledgements.map((item) => (
-            <a className={styles.ackChip} href={item.link} key={item.title} rel="noreferrer" target="_blank">
+            <a
+              className={`${styles.ackChip} ${styles.liquidGlass}`}
+              href={item.link}
+              key={item.title}
+              rel="noreferrer"
+              target="_blank"
+            >
               <strong>{item.title}</strong>
               <span>{item.license}</span>
             </a>

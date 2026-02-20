@@ -1,21 +1,26 @@
 .page {
-  --bg-top: #63a9ee;
-  --bg-mid: #a9d0f6;
-  --bg-bottom: #ffd59e;
-  --surface: rgba(250, 253, 255, 0.72);
-  --surface-strong: rgba(249, 252, 255, 0.86);
+  --bg-top: #6aaeea;
+  --bg-mid: #aed4fa;
+  --bg-bottom: #f9dcb0;
+  --surface: rgba(248, 252, 255, 0.32);
+  --surface-strong: rgba(249, 253, 255, 0.48);
+  --liquid-shadow: 0 20px 38px rgba(24, 67, 120, 0.18);
   --text-strong: #17375f;
-  --text-body: #2d5785;
-  --text-muted: #4f79a6;
-  --stroke-soft: rgba(102, 151, 211, 0.24);
-  --stroke-strong: rgba(72, 129, 196, 0.45);
-  --mountain: #6b94ce;
-  --ground-a: #f7c27d;
-  --ground-b: #f6aa63;
-  --ground-c: #f3b57f;
+  --text-body: #2c5786;
+  --text-muted: #4c78a5;
+  --stroke-soft: rgba(98, 150, 214, 0.25);
+  --stroke-strong: rgba(58, 123, 201, 0.55);
+  --focus: #0f5ac4;
+  --mountain: #7da5d8;
+  --ground-a: #f5c486;
+  --ground-b: #efa461;
+  --ground-c: #f2b87f;
 
-  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 55%, var(--bg-bottom) 100%);
+  background:
+    radial-gradient(circle at 14% 0%, rgba(255, 255, 255, 0.38), transparent 30%),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 54%, var(--bg-bottom) 100%);
   color: var(--text-strong);
+  isolation: isolate;
   min-height: 100vh;
   overflow: hidden;
   padding: 1rem clamp(1rem, 3vw, 2.6rem) 2.4rem;
@@ -23,65 +28,127 @@
 }
 
 .dark {
-  --bg-top: #072047;
-  --bg-mid: #143c74;
-  --bg-bottom: #c58858;
-  --surface: rgba(11, 27, 54, 0.65);
-  --surface-strong: rgba(12, 25, 50, 0.82);
-  --text-strong: #eef7ff;
-  --text-body: #bad7f4;
-  --text-muted: #8bb2d9;
-  --stroke-soft: rgba(141, 192, 251, 0.24);
-  --stroke-strong: rgba(167, 216, 255, 0.5);
-  --mountain: #244b7f;
-  --ground-a: #b98251;
-  --ground-b: #9f6a3f;
-  --ground-c: #bf8856;
+  --bg-top: #082146;
+  --bg-mid: #173e73;
+  --bg-bottom: #b98458;
+  --surface: rgba(13, 30, 56, 0.42);
+  --surface-strong: rgba(11, 24, 46, 0.6);
+  --liquid-shadow: 0 20px 40px rgba(5, 14, 30, 0.42);
+  --text-strong: #ecf7ff;
+  --text-body: #b8d8f4;
+  --text-muted: #88b1d8;
+  --stroke-soft: rgba(132, 189, 253, 0.26);
+  --stroke-strong: rgba(170, 218, 255, 0.58);
+  --focus: #a8d3ff;
+  --mountain: #2c5487;
+  --ground-a: #b67f51;
+  --ground-b: #9a663f;
+  --ground-c: #bc8858;
 }
 
 .light {
-  --bg-top: #68aef2;
-  --bg-mid: #b9dcfa;
-  --bg-bottom: #ffd8a9;
+  --bg-top: #70b4ee;
+  --bg-mid: #c0e1fb;
+  --bg-bottom: #ffe0b7;
+}
+
+.highContrast {
+  --surface: rgba(255, 255, 255, 0.56);
+  --surface-strong: rgba(255, 255, 255, 0.74);
+  --text-strong: #0f2848;
+  --text-body: #183f6b;
+  --text-muted: #245487;
+  --stroke-soft: rgba(42, 108, 182, 0.4);
+  --stroke-strong: rgba(27, 87, 162, 0.75);
+}
+
+.dark.highContrast {
+  --surface: rgba(5, 15, 31, 0.72);
+  --surface-strong: rgba(5, 15, 31, 0.85);
+  --text-strong: #f4fbff;
+  --text-body: #e0f1ff;
+  --text-muted: #bde0ff;
+  --stroke-soft: rgba(165, 213, 255, 0.55);
+  --stroke-strong: rgba(203, 233, 255, 0.82);
+}
+
+.readable {
+  font-size: 1.08rem;
+}
+
+.reduceMotion *,
+.reduceMotion *::before,
+.reduceMotion *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.skipLink {
+  background: var(--surface-strong);
+  border: 2px solid var(--stroke-strong);
+  border-radius: 0.65rem;
+  color: var(--text-strong);
+  left: 1rem;
+  padding: 0.45rem 0.64rem;
+  position: absolute;
+  top: -100px;
+  z-index: 30;
+}
+
+.skipLink:focus-visible {
+  top: 1rem;
 }
 
 .skyGlow,
+.shaderVeil,
 .sun,
 .mountains,
 .ground {
   pointer-events: none;
   position: absolute;
-  z-index: -1;
+  z-index: -2;
 }
 
 .skyGlow {
-  animation: driftGlow 20s ease-in-out infinite;
-  background: radial-gradient(circle, rgba(212, 238, 255, 0.52), transparent 70%);
-  filter: blur(14px);
+  animation: driftGlow 24s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(208, 236, 255, 0.55) 0%, transparent 72%);
+  filter: blur(12px);
   height: 620px;
   left: 50%;
-  top: -200px;
+  top: -220px;
   transform: translateX(-50%);
-  width: 840px;
+  width: 900px;
+}
+
+.shaderVeil {
+  animation: shaderFlow 18s linear infinite;
+  background:
+    conic-gradient(from 120deg at 22% 16%, rgba(255, 255, 255, 0.16), transparent 36%),
+    conic-gradient(from 312deg at 75% 22%, rgba(112, 189, 255, 0.2), transparent 40%);
+  filter: blur(28px);
+  height: 84%;
+  inset: 0;
+  width: 100%;
+  z-index: -3;
 }
 
 .sun {
-  background: radial-gradient(circle, rgba(255, 248, 230, 0.95) 0%, rgba(255, 244, 214, 0.4) 45%, transparent 75%);
+  background: radial-gradient(circle, rgba(255, 248, 228, 0.95) 0%, rgba(255, 245, 216, 0.46) 48%, transparent 74%);
   border-radius: 999px;
   height: 200px;
-  right: 8%;
-  top: 36%;
+  right: 9%;
+  top: 34%;
   width: 200px;
 }
 
 .mountains {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--mountain), white 8%) 0%, var(--mountain) 100%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--mountain), white 9%) 0%, var(--mountain) 100%);
   bottom: 18%;
-  clip-path: polygon(0 100%, 8% 80%, 13% 86%, 20% 56%, 26% 74%, 34% 48%, 41% 72%, 50% 58%, 58% 73%, 67% 57%, 76% 76%, 85% 62%, 94% 79%, 100% 70%, 100% 100%);
+  clip-path: polygon(0 100%, 9% 82%, 13% 88%, 19% 55%, 27% 74%, 33% 52%, 40% 73%, 51% 56%, 58% 71%, 66% 59%, 74% 76%, 83% 63%, 92% 79%, 100% 69%, 100% 100%);
   left: -2%;
-  opacity: 0.65;
+  opacity: 0.66;
   width: 104%;
-  height: 240px;
+  height: 250px;
 }
 
 .ground {
@@ -89,29 +156,61 @@
   bottom: -1px;
   height: 20%;
   left: 0;
-  opacity: 0.92;
+  opacity: 0.9;
   width: 100%;
+}
+
+.liquidGlass {
+  backdrop-filter: blur(17px) saturate(162%);
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--surface-strong), white 4%) 0%,
+    color-mix(in srgb, var(--surface), transparent 3%) 100%
+  );
+  border: 1px solid var(--stroke-soft);
+  box-shadow: var(--liquid-shadow);
+  overflow: hidden;
+  position: relative;
+}
+
+.liquidGlass::before {
+  background: radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.42), transparent 44%);
+  content: "";
+  inset: 0;
+  opacity: 0.62;
+  pointer-events: none;
+  position: absolute;
+}
+
+.liquidGlass::after {
+  animation: glassShimmer 10s ease-in-out infinite;
+  background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.2) 50%, transparent 80%);
+  content: "";
+  inset: -110% 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-120%);
 }
 
 .header {
   align-items: center;
   animation: fadeDown 620ms ease both;
-  backdrop-filter: blur(14px);
-  background: var(--surface);
-  border: 1px solid var(--stroke-soft);
   border-radius: 1rem;
   display: flex;
   gap: 0.8rem;
   justify-content: space-between;
   margin: 0 auto;
   max-width: 1120px;
-  padding: 0.7rem 0.8rem;
+  padding: 0.72rem 0.82rem;
+  z-index: 2;
 }
 
 .brand {
   align-items: center;
   display: inline-flex;
   gap: 0.62rem;
+  position: relative;
+  z-index: 1;
 }
 
 .brandIcon {
@@ -134,34 +233,101 @@
   font-size: 0.76rem;
 }
 
-.nav {
+.headerControls {
   align-items: center;
   display: inline-flex;
-  gap: 0.48rem;
+  gap: 0.44rem;
+  position: relative;
+  z-index: 2;
 }
 
-.nav a,
-.themeToggle {
-  background: color-mix(in srgb, var(--surface), transparent 28%);
-  border: 1px solid var(--stroke-soft);
-  border-radius: 999px;
+.navLink,
+.themeToggle,
+.accessSummary,
+.accessOption {
   color: var(--text-body);
   font-family: var(--font-space-grotesk), sans-serif;
-  font-size: 0.78rem;
   font-weight: 700;
+}
+
+.navLink,
+.themeToggle,
+.accessSummary {
+  border-radius: 999px;
+  font-size: 0.78rem;
   padding: 0.44rem 0.72rem;
-  transition: transform 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.navLink,
+.themeToggle {
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
 }
 
 .themeToggle {
-  cursor: pointer;
+  border: 0;
 }
 
-.nav a:hover,
-.themeToggle:hover {
+.accessMenu {
+  position: relative;
+}
+
+.accessSummary {
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  z-index: 1;
+}
+
+.accessSummary::-webkit-details-marker {
+  display: none;
+}
+
+.accessSummary::after {
+  content: "▾";
+  margin-left: 0.4rem;
+}
+
+.accessPanel {
+  border-radius: 0.9rem;
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.42rem;
+  min-width: 220px;
+  padding: 0.58rem;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 20;
+}
+
+.accessOption {
+  background: color-mix(in srgb, var(--surface), transparent 8%);
+  border: 1px solid var(--stroke-soft);
+  border-radius: 0.68rem;
+  cursor: pointer;
+  font-size: 0.76rem;
+  padding: 0.45rem 0.52rem;
+  text-align: left;
+}
+
+.accessOption[aria-pressed="true"] {
   border-color: var(--stroke-strong);
   color: var(--text-strong);
-  transform: translateY(-1px);
+}
+
+.page :is(a, button, summary):focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.navLink:hover,
+.themeToggle:hover,
+.accessSummary:hover,
+.accessOption:hover {
+  border-color: var(--stroke-strong);
+  color: var(--text-strong);
 }
 
 .hero {
@@ -193,7 +359,7 @@
   color: var(--text-body);
   font-family: var(--font-space-grotesk), sans-serif;
   font-size: clamp(1rem, 2.2vw, 1.2rem);
-  line-height: 1.58;
+  line-height: 1.6;
   margin: 1rem auto 0;
   max-width: 710px;
 }
@@ -210,19 +376,16 @@
   animation: pulseButton 8s ease-in-out infinite;
 }
 
-.heroActions p {
+.heroActions > p {
   color: var(--text-muted);
   font-family: var(--font-plex-mono), monospace;
   font-size: 0.74rem;
 }
 
 .installHelp {
-  background: var(--surface-strong);
-  border: 1px solid var(--stroke-soft);
-  border-radius: 0.88rem;
+  border-radius: 0.92rem;
   margin-top: 0.25rem;
   max-width: 740px;
-  overflow: hidden;
   text-align: left;
   width: min(100%, 740px);
 }
@@ -235,6 +398,8 @@
   font-weight: 700;
   list-style: none;
   padding: 0.66rem 0.78rem;
+  position: relative;
+  z-index: 1;
 }
 
 .installSummary::-webkit-details-marker {
@@ -257,6 +422,8 @@
   display: grid;
   gap: 0.55rem;
   padding: 0.68rem 0.78rem 0.76rem;
+  position: relative;
+  z-index: 1;
 }
 
 .installPanel p {
@@ -289,9 +456,9 @@
   font-family: var(--font-plex-mono), monospace;
   font-size: 0.7rem;
   letter-spacing: 0.02em;
+  opacity: 0;
   padding: 0.28rem 0.56rem;
   transform: translateY(4px);
-  opacity: 0;
 }
 
 .installHelp[open] .flowStep {
@@ -315,7 +482,7 @@
 }
 
 .terminalFrame {
-  background: color-mix(in srgb, var(--surface), transparent 12%);
+  background: color-mix(in srgb, var(--surface), transparent 14%);
   border: 1px solid var(--stroke-soft);
   border-radius: 0.68rem;
   overflow: hidden;
@@ -323,12 +490,7 @@
 }
 
 .terminalFrame::after {
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(101, 192, 255, 0.15) 48%,
-    transparent 100%
-  );
+  background: linear-gradient(180deg, transparent 0%, rgba(101, 192, 255, 0.15) 48%, transparent 100%);
   content: "";
   inset: -140% 0 auto;
   pointer-events: none;
@@ -377,8 +539,6 @@
 }
 
 .commandLines {
-  background: transparent;
-  border: 0;
   color: var(--text-strong);
   display: block;
   font-family: var(--font-plex-mono), monospace;
@@ -445,22 +605,16 @@
 
 .featureCard {
   animation: rise 700ms ease both;
-  backdrop-filter: blur(10px);
-  background: var(--surface-strong);
-  border: 1px solid var(--stroke-soft);
   border-radius: 0.88rem;
-  box-shadow: 0 10px 22px rgba(44, 91, 144, 0.12);
   padding: 0.84rem;
-}
-
-.dark .featureCard {
-  box-shadow: 0 12px 24px rgba(4, 16, 33, 0.24);
 }
 
 .featureCard h2 {
   color: var(--text-strong);
   font-family: var(--font-space-grotesk), sans-serif;
   font-size: 0.94rem;
+  position: relative;
+  z-index: 1;
 }
 
 .featureCard p {
@@ -468,6 +622,8 @@
   font-size: 0.82rem;
   line-height: 1.45;
   margin-top: 0.32rem;
+  position: relative;
+  z-index: 1;
 }
 
 .showcase {
@@ -477,17 +633,9 @@
 
 .primaryShot {
   aspect-ratio: 16 / 10;
-  backdrop-filter: blur(14px);
-  background: var(--surface);
-  border: 1px solid var(--stroke-soft);
   border-radius: 1rem;
-  box-shadow: 0 20px 42px rgba(43, 88, 143, 0.22);
   overflow: hidden;
   position: relative;
-}
-
-.dark .primaryShot {
-  box-shadow: 0 22px 44px rgba(2, 11, 27, 0.36);
 }
 
 .primaryShot img,
@@ -504,6 +652,7 @@
   padding: 1rem 0.78rem 0.64rem;
   position: absolute;
   right: 0;
+  z-index: 1;
 }
 
 .light .primaryShot figcaption {
@@ -520,9 +669,6 @@
 
 .thumbShot {
   aspect-ratio: 16 / 10;
-  backdrop-filter: blur(12px);
-  background: var(--surface);
-  border: 1px solid var(--stroke-soft);
   border-radius: 0.88rem;
   overflow: hidden;
   position: relative;
@@ -557,31 +703,26 @@
 
 .ackChip {
   align-items: center;
-  background: var(--surface-strong);
-  border: 1px solid var(--stroke-soft);
   border-radius: 999px;
-  color: var(--text-body);
   display: inline-flex;
   gap: 0.5rem;
   padding: 0.46rem 0.72rem;
-  transition: transform 150ms ease, border-color 150ms ease;
-}
-
-.ackChip:hover {
-  border-color: var(--stroke-strong);
-  transform: translateY(-1px);
 }
 
 .ackChip strong {
   color: var(--text-strong);
   font-family: var(--font-space-grotesk), sans-serif;
   font-size: 0.82rem;
+  position: relative;
+  z-index: 1;
 }
 
 .ackChip span {
   color: var(--text-muted);
   font-family: var(--font-plex-mono), monospace;
   font-size: 0.68rem;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes fadeDown {
@@ -613,6 +754,28 @@
   }
   50% {
     transform: translateX(-50%) translateY(12px) scale(1.04);
+  }
+}
+
+@keyframes shaderFlow {
+  0% {
+    transform: translateX(-2%) rotate(0deg);
+  }
+  50% {
+    transform: translateX(2%) rotate(4deg);
+  }
+  100% {
+    transform: translateX(-2%) rotate(0deg);
+  }
+}
+
+@keyframes glassShimmer {
+  0% {
+    transform: translateX(-120%);
+  }
+  45%,
+  100% {
+    transform: translateX(140%);
   }
 }
 
@@ -688,16 +851,22 @@
   .featureGrid {
     grid-template-columns: 1fr;
   }
+
+  .headerControls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .accessPanel {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
 }
 
 @media (max-width: 760px) {
   .page {
     padding: 0.8rem 0.72rem 1.8rem;
-  }
-
-  .nav {
-    flex-wrap: wrap;
-    justify-content: center;
   }
 
   .hero h1 {
@@ -719,6 +888,10 @@
   .sun {
     height: 150px;
     width: 150px;
+  }
+
+  .readable {
+    font-size: 1.03rem;
   }
 }
 
