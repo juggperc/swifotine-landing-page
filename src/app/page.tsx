@@ -98,6 +98,30 @@ export default function HomePage() {
         <div className={styles.heroActions}>
           <DownloadButton className={styles.heroCta} tone={theme === "dark" ? "dark" : "light"} />
           <p>{minimumOS}</p>
+
+          <details className={styles.installHelp}>
+            <summary className={styles.installSummary}>First-time install help (unsigned app)</summary>
+            <div className={styles.installPanel}>
+              <p>
+                If macOS blocks launch, run these commands in Terminal after downloading
+                <code> Swifotine.app.zip</code>. Put <code>Swifotine.app</code> in
+                <code> /Applications</code> first:
+              </p>
+              <pre className={styles.commandBlock}>
+                <code>{`cd ~/Downloads
+unzip -o Swifotine.app.zip
+mv -f "Swifotine.app" /Applications/ || sudo mv -f "Swifotine.app" /Applications/
+cd /Applications
+chmod +x "Swifotine.app/Contents/MacOS/Swifotine"
+xattr -dr com.apple.quarantine "Swifotine.app"
+open "Swifotine.app"`}</code>
+              </pre>
+              <p className={styles.installNote}>
+                If it is still blocked: open <strong>System Settings → Privacy & Security</strong> and click
+                <strong> Open Anyway</strong> for Swifotine, then launch again.
+              </p>
+            </div>
+          </details>
         </div>
       </section>
 

@@ -216,6 +216,88 @@
   font-size: 0.74rem;
 }
 
+.installHelp {
+  background: var(--surface-strong);
+  border: 1px solid var(--stroke-soft);
+  border-radius: 0.88rem;
+  margin-top: 0.25rem;
+  max-width: 740px;
+  overflow: hidden;
+  text-align: left;
+  width: min(100%, 740px);
+}
+
+.installSummary {
+  color: var(--text-strong);
+  cursor: pointer;
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  list-style: none;
+  padding: 0.66rem 0.78rem;
+}
+
+.installSummary::-webkit-details-marker {
+  display: none;
+}
+
+.installSummary::before {
+  color: var(--text-muted);
+  content: "▸";
+  margin-right: 0.45rem;
+  transition: transform 150ms ease;
+}
+
+.installHelp[open] .installSummary::before {
+  transform: rotate(90deg);
+}
+
+.installPanel {
+  border-top: 1px solid var(--stroke-soft);
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.68rem 0.78rem 0.76rem;
+}
+
+.installPanel p {
+  color: var(--text-body);
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.installPanel code {
+  background: color-mix(in srgb, var(--surface), transparent 8%);
+  border: 1px solid var(--stroke-soft);
+  border-radius: 0.4rem;
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 0.78rem;
+  padding: 0.06rem 0.32rem;
+}
+
+.commandBlock {
+  background: color-mix(in srgb, var(--surface), transparent 14%);
+  border: 1px solid var(--stroke-soft);
+  border-radius: 0.68rem;
+  overflow-x: auto;
+  padding: 0.62rem 0.64rem;
+}
+
+.commandBlock code {
+  background: transparent;
+  border: 0;
+  color: var(--text-strong);
+  display: block;
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 0.78rem;
+  line-height: 1.62;
+  padding: 0;
+}
+
+.installNote {
+  color: var(--text-muted);
+}
+
 .featureGrid {
   display: grid;
   gap: 0.72rem;
@@ -439,6 +521,10 @@
 
   .hero h1 {
     font-size: clamp(2.05rem, 13vw, 3.5rem);
+  }
+
+  .installSummary {
+    font-size: 0.82rem;
   }
 
   .thumbRow {
